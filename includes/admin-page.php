@@ -89,12 +89,13 @@ class Diyar_Comment_Admin {
         <div class="wrap">
             <h1>Manga Diyarı Yorum Ayarları</h1>
             <form action="options.php" method="post">
-                <?php 
-                settings_fields('diyar_comment_options'); 
-                do_settings_sections('diyar_comment_options'); 
-                submit_button('Ayarları Kaydet'); 
+                <?php
+                settings_fields('diyar_comment_options');
+                do_settings_sections('diyar_comment_options');
+                submit_button('Ayarları Kaydet');
                 ?>
             </form>
+            <?php $this->render_leaderboard_section(); ?>
         </div>
         <?php
     }
@@ -189,7 +190,7 @@ class Diyar_Comment_Admin {
         $options = get_option('diyar_comment_options', array());
         $name_attr = 'diyar_comment_options[' . $args['name'] . ']';
         $value = isset($options[$args['name']]) ? $options[$args['name']] : (isset($args['default']) ? $args['default'] : '');
-        
+
         switch ($args['type']) {
             case 'checkbox':
                 echo '<input type="checkbox" name="' . esc_attr($name_attr) . '" value="1" ' . checked(1, $value, false) . ' />';
@@ -216,6 +217,173 @@ class Diyar_Comment_Admin {
         if (!empty($args['description'])) {
             echo '<p class="description">' . esc_html($args['description']) . '</p>';
         }
+    }
+
+    private function render_leaderboard_section() {
+        $weekly_top = $this->get_top_commenters('weekly');
+        $monthly_top = $this->get_top_commenters('monthly');
+        ?>
+        <div class="diyar-leaderboard-container">
+            <h2><?php esc_html_e('Yorumcu Liderlik Tablosu', 'diyar-comment'); ?></h2>
+            <p class="diyar-leaderboard-description">
+                <?php esc_html_e('Puanlar, kullanıcıların yazdığı yorumların uzunluğuna göre otomatik olarak hesaplanır.', 'diyar-comment'); ?>
+            </p>
+            <div class="diyar-leaderboard-columns">
+                <?php
+                $this->render_leaderboard_block(
+                    __('Haftalık En Çok Puan Kazananlar', 'diyar-comment'),
+                    $weekly_top
+                );
+                $this->render_leaderboard_block(
+                    __('Aylık En Çok Puan Kazananlar', 'diyar-comment'),
+                    $monthly_top
+                );
+                ?>
+            </div>
+        </div>
+        <?php
+    }
+
+    private function render_leaderboard_block($title, $items) {
+        ?>
+        <div class="diyar-leaderboard-block">
+            <h3><?php echo esc_html($title); ?></h3>
+            <?php if (!empty($items)) : ?>
+                <ol class="diyar-leaderboard-list">
+                    <?php foreach ($items as $index => $item) : ?>
+                        <li>
+                            <span class="diyar-leaderboard-rank"><?php echo esc_html($index + 1); ?></span>
+                            <div class="diyar-leaderboard-main">
+                                <span class="diyar-leaderboard-name">
+                                    <?php if (!empty($item['profile_url'])) : ?>
+                                        <a href="<?php echo esc_url($item['profile_url']); ?>">
+                                            <?php echo esc_html($item['name']); ?>
+                                        </a>
+                                    <?php else : ?>
+                                        <?php echo esc_html($item['name']); ?>
+                                    <?php endif; ?>
+                                </span>
+                                <div class="diyar-leaderboard-stats">
+                                    <span class="diyar-leaderboard-score"><?php printf(__('Puan: %s', 'diyar-comment'), number_format_i18n($item['score'])); ?></span>
+                                    <span class="diyar-leaderboard-count"><?php printf(_n('%s yorum', '%s yorum', $item['comment_count'], 'diyar-comment'), number_format_i18n($item['comment_count'])); ?></span>
+                                </div>
+                            </div>
+                        </li>
+                    <?php endforeach; ?>
+                </ol>
+            <?php else : ?>
+                <p class="diyar-leaderboard-empty"><?php esc_html_e('Bu dönemde uygun yorum bulunamadı.', 'diyar-comment'); ?></p>
+            <?php endif; ?>
+        </div>
+        <?php
+    }
+
+    private function get_top_commenters($period = 'weekly', $limit = 5) {
+        $cache_key = 'diyar_comment_leaderboard_' . $period;
+        $cached = get_transient($cache_key);
+
+        if ($cached !== false && is_array($cached)) {
+            return array_slice($cached, 0, $limit);
+        }
+
+        $now = current_time('timestamp', true);
+
+        switch ($period) {
+            case 'monthly':
+                $start_timestamp = $now - MONTH_IN_SECONDS;
+                break;
+            case 'weekly':
+            default:
+                $start_timestamp = $now - WEEK_IN_SECONDS;
+                break;
+        }
+
+        $comments = get_comments(array(
+            'status' => 'approve',
+            'date_query' => array(
+                array(
+                    'column' => 'comment_date_gmt',
+                    'after' => gmdate('Y-m-d H:i:s', $start_timestamp),
+                    'inclusive' => true,
+                ),
+            ),
+            'type__in' => array('', 'comment'),
+            'number' => 0,
+        ));
+
+        if (empty($comments)) {
+            return array();
+        }
+
+        $scores = array();
+
+        foreach ($comments as $comment) {
+            $score = $this->calculate_comment_score($comment->comment_content);
+
+            if ($score <= 0) {
+                continue;
+            }
+
+            $is_registered_user = !empty($comment->user_id);
+            $key = $is_registered_user
+                ? 'user_' . absint($comment->user_id)
+                : 'guest_' . md5(strtolower(trim($comment->comment_author_email)));
+
+            if (!isset($scores[$key])) {
+                $scores[$key] = array(
+                    'name' => '',
+                    'score' => 0,
+                    'comment_count' => 0,
+                    'profile_url' => '',
+                );
+
+                if ($is_registered_user) {
+                    $user = get_userdata($comment->user_id);
+                    if ($user) {
+                        $scores[$key]['name'] = $user->display_name ? $user->display_name : $user->user_login;
+                        $scores[$key]['profile_url'] = admin_url('user-edit.php?user_id=' . absint($comment->user_id));
+                    }
+                }
+
+                if (empty($scores[$key]['name'])) {
+                    $scores[$key]['name'] = $comment->comment_author ? $comment->comment_author : __('Misafir Kullanıcı', 'diyar-comment');
+                }
+            }
+
+            $scores[$key]['score'] += $score;
+            $scores[$key]['comment_count']++;
+        }
+
+        if (empty($scores)) {
+            return array();
+        }
+
+        usort($scores, function ($a, $b) {
+            if ($a['score'] === $b['score']) {
+                return $b['comment_count'] <=> $a['comment_count'];
+            }
+
+            return $b['score'] <=> $a['score'];
+        });
+
+        $top_commenters = array_slice(array_values($scores), 0, $limit);
+
+        set_transient($cache_key, $top_commenters, HOUR_IN_SECONDS);
+
+        return $top_commenters;
+    }
+
+    private function calculate_comment_score($content) {
+        $clean_content = wp_strip_all_tags((string) $content);
+        $clean_content = trim(preg_replace('/\s+/u', ' ', $clean_content));
+
+        if ($clean_content === '') {
+            return 0;
+        }
+
+        $length = function_exists('mb_strlen') ? mb_strlen($clean_content, 'UTF-8') : strlen($clean_content);
+
+        return max(1, $length);
     }
 }
 
