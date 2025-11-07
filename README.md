@@ -291,4 +291,4 @@ Plugin hoşunuza gittiyse WordPress.org'da 5 yıldız verin ve yorumlarınızı 
 
 ---
 
-**solderet** tarafından ❤️ ile geliştirilmiştir.
+**Hudson Hornet** tarafından ❤️ ile geliştirilmiştir.
