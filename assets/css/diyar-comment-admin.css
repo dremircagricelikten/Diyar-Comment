@@ -1,0 +1,555 @@
+/* Admin Genel Stiller */
+.diyar-admin-wrap .nav-tab-wrapper { 
+    margin-bottom: 20px; 
+}
+
+.diyar-admin-wrap form .form-table { 
+    max-width: 700px; 
+}
+
+.diyar-admin-wrap .form-table th { 
+    width: 200px; 
+}
+
+.diyar-admin-wrap .form-table p.description { 
+    font-size: 13px; 
+    color: #646970; 
+}
+
+/* Yorum Yönetimi Tablosu */
+.diyar-comment-manager-table {
+    background: #fff;
+    border: 1px solid #c3c4c7;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.diyar-comment-manager-table .wp-list-table {
+    border: none;
+}
+
+.diyar-comment-manager-table .wp-list-table th,
+.diyar-comment-manager-table .wp-list-table td {
+    padding: 12px;
+    vertical-align: top;
+}
+
+.diyar-comment-manager-table .comment-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.diyar-comment-manager-table .comment-actions a,
+.diyar-comment-manager-table .comment-actions button {
+    font-size: 12px;
+    padding: 4px 8px;
+    border-radius: 3px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    background: #f0f0f1;
+    color: #50575e;
+    transition: all 0.2s ease;
+}
+
+.diyar-comment-manager-table .comment-actions a:hover,
+.diyar-comment-manager-table .comment-actions button:hover {
+    background: #005B43;
+    color: #fff;
+}
+
+.diyar-comment-manager-table .comment-actions .ban-action {
+    background: #d63638;
+    color: #fff;
+}
+
+.diyar-comment-manager-table .comment-actions .ban-action:hover {
+    background: #b32d2e;
+}
+
+.diyar-comment-manager-table .comment-actions .timeout-action {
+    background: #dba617;
+    color: #fff;
+}
+
+.diyar-comment-manager-table .comment-actions .timeout-action:hover {
+    background: #c69c00;
+}
+
+.comment-stats {
+    font-size: 13px;
+    color: #646970;
+}
+
+.comment-stats .likes {
+    color: #00a32a;
+    font-weight: 600;
+}
+
+.comment-stats .dislikes {
+    color: #d63638;
+    font-weight: 600;
+}
+
+.comment-stats .reports {
+    color: #d63638;
+    font-weight: 600;
+}
+
+/* Rozet Yönetimi - Düzeltilmiş */
+.badge-manager-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-top: 20px;
+}
+
+.badge-forms-section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.badge-form-card {
+    background: #fff;
+    padding: 20px;
+    border: 1px solid #c3c4c7;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+
+.badge-form-card h3 {
+    margin: 0 0 10px;
+    color: #005B43;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.badge-form-card .description {
+    color: #646970;
+    margin-bottom: 15px;
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+.form-field {
+    margin-bottom: 15px;
+}
+
+.form-field label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+    font-size: 13px;
+    color: #1d2327;
+}
+
+.form-field input, 
+.form-field select {
+    width: 100%;
+    max-width: 300px;
+    padding: 6px 8px;
+    border: 1px solid #8c8f94;
+    border-radius: 4px;
+    font-size: 13px;
+}
+
+.form-field input:focus,
+.form-field select:focus {
+    border-color: #005B43;
+    box-shadow: 0 0 0 1px #005B43;
+    outline: none;
+}
+
+.form-field small {
+    display: block;
+    margin-top: 4px;
+    color: #646970;
+    font-size: 11px;
+}
+
+/* Rozet Şablonları - Düzeltilmiş boyutlar */
+.badge-templates, 
+.badge-templates-auto {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 8px 0;
+    padding: 12px;
+    background: #f6f7f7;
+    border: 1px solid #c3c4c7;
+    border-radius: 4px;
+}
+
+.template-item, 
+.template-item-auto {
+    width: 50px;
+    height: 50px;
+    padding: 8px;
+    border: 2px solid #c3c4c7;
+    cursor: pointer;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    background: #fff;
+}
+
+.template-item svg, 
+.template-item-auto svg {
+    width: 24px;
+    height: 24px;
+    max-width: 24px;
+    max-height: 24px;
+}
+
+.template-item:hover, 
+.template-item-auto:hover {
+    border-color: #005B43;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.template-item.selected, 
+.template-item-auto.selected {
+    border-color: #005B43;
+    background: rgba(0, 91, 67, 0.1);
+    box-shadow: 0 0 0 1px #005B43;
+}
+
+/* Rozet Listesi */
+.badge-list-section {
+    background: #fff;
+    padding: 20px;
+    border: 1px solid #c3c4c7;
+    border-radius: 8px;
+}
+
+.badge-list-section h3 {
+    margin: 0 0 20px;
+    color: #1d2327;
+    font-size: 16px;
+    font-weight: 600;
+    border-bottom: 1px solid #c3c4c7;
+    padding-bottom: 10px;
+}
+
+.badge-list {
+    display: grid;
+    gap: 15px;
+}
+
+.badge-item-card {
+    background: #f6f7f7;
+    padding: 15px;
+    border: 1px solid #c3c4c7;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    transition: all 0.2s ease;
+}
+
+.badge-item-card:hover {
+    background: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.badge-preview {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    border-radius: 8px;
+    border: 1px solid #c3c4c7;
+}
+
+.badge-preview svg {
+    width: 30px;
+    height: 30px;
+    max-width: 30px;
+    max-height: 30px;
+}
+
+.badge-info {
+    flex: 1;
+}
+
+.badge-info h4 {
+    margin: 0 0 5px;
+    color: #1d2327;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.badge-type {
+    margin: 0 0 5px;
+    color: #646970;
+    font-size: 12px;
+}
+
+.badge-stats {
+    margin: 0;
+    color: #646970;
+    font-size: 11px;
+}
+
+.badge-actions .button {
+    font-size: 12px;
+    padding: 4px 8px;
+    height: auto;
+    line-height: 1.2;
+}
+
+.no-badges {
+    text-align: center;
+    padding: 40px;
+    color: #646970;
+    background: #f6f7f7;
+    border-radius: 6px;
+    border: 1px dashed #c3c4c7;
+}
+
+/* Buton Stilleri */
+.button.is-destructive {
+    color: #d63638 !important;
+    border-color: #d63638 !important;
+    background: transparent !important;
+}
+
+.button.is-destructive:hover,
+.button.is-destructive:focus {
+    background: #d63638 !important;
+    color: #fff !important;
+    border-color: #b32d2e !important;
+}
+
+.button-primary {
+    background: #005B43 !important;
+    border-color: #005B43 !important;
+    color: #fff !important;
+}
+
+.button-primary:hover,
+.button-primary:focus {
+    background: #007a5a !important;
+    border-color: #007a5a !important;
+}
+
+/* Renk Seçici */
+.wp-color-picker {
+    width: 60px !important;
+    height: 30px !important;
+    padding: 0 !important;
+    border-radius: 4px !important;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+    .badge-manager-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .badge-forms-section {
+        margin-bottom: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .badge-templates,
+    .badge-templates-auto {
+        justify-content: center;
+    }
+    
+    .template-item,
+    .template-item-auto {
+        width: 45px;
+        height: 45px;
+    }
+    
+    .badge-item-card {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+    }
+    
+    .form-field input,
+    .form-field select {
+        max-width: none;
+    }
+}
+
+/* Yükleme Animasyonu */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loading-spinner {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2px solid #f3f3f3;
+    border-top: 2px solid #005B43;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-left: 8px;
+}
+
+/* Bildirimler */
+.notice.diyar-notice {
+    border-left-color: #005B43;
+}
+
+.notice.diyar-notice.notice-success {
+    border-left-color: #00a32a;
+}
+
+.notice.diyar-notice.notice-error {
+    border-left-color: #d63638;
+}
+
+.notice.diyar-notice.notice-warning {
+    border-left-color: #dba617;
+}
+
+/* Modal Pencereler */
+.diyar-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 100000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+.diyar-modal-content {
+    background: #fff;
+    border-radius: 6px;
+    padding: 20px;
+    max-width: 500px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.diyar-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #c3c4c7;
+}
+
+.diyar-modal-close {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: #646970;
+    padding: 0;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.diyar-modal-close:hover {
+    color: #1d2327;
+}
+
+/* Tablo Özelleştirmeleri */
+.wp-list-table .column-comment {
+    width: 40%;
+}
+
+.wp-list-table .column-author {
+    width: 15%;
+}
+
+.wp-list-table .column-response {
+    width: 20%;
+}
+
+.wp-list-table .column-likes {
+    width: 10%;
+    text-align: center;
+}
+
+.wp-list-table .column-reports {
+    width: 10%;
+    text-align: center;
+}
+
+.wp-list-table .column-date {
+    width: 15%;
+}
+
+/* Durum İşaretleri */
+.status-indicator {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-right: 6px;
+}
+
+.status-indicator.approved {
+    background: #00a32a;
+}
+
+.status-indicator.pending {
+    background: #dba617;
+}
+
+.status-indicator.spam {
+    background: #d63638;
+}
+
+.status-indicator.trash {
+    background: #646970;
+}
+
+/* Admin Genel İyileştirmeler */
+.diyar-admin-wrap h1 {
+    color: #1d2327;
+    font-size: 23px;
+    font-weight: 400;
+    margin: 0 0 20px;
+    padding: 0;
+}
+
+.diyar-admin-wrap .form-table th {
+    color: #1d2327;
+    font-weight: 600;
+}
+
+.diyar-admin-wrap .form-table td {
+    color: #50575e;
+}
+
+.diyar-admin-wrap .form-table input[type="text"],
+.diyar-admin-wrap .form-table input[type="number"],
+.diyar-admin-wrap .form-table textarea,
+.diyar-admin-wrap .form-table select {
+    border-color: #8c8f94;
+}
+
+.diyar-admin-wrap .form-table input:focus,
+.diyar-admin-wrap .form-table textarea:focus,
+.diyar-admin-wrap .form-table select:focus {
+    border-color: #005B43;
+    box-shadow: 0 0 0 1px #005B43;
+}

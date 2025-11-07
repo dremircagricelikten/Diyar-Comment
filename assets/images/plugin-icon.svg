@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+  <defs>
+    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#005B43;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#007a5a;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Arka plan daire -->
+  <circle cx="64" cy="64" r="58" fill="url(#gradient)" stroke="#003d2e" stroke-width="4"/>
+  
+  <!-- Ana yorum baloncuğu -->
+  <path d="M32 38 C32 33 37 28 42 28 L86 28 C91 28 96 33 96 38 L96 58 C96 63 91 68 86 68 L52 68 L38 82 L44 68 C37 68 32 63 32 58 Z" 
+        fill="white" opacity="0.95" stroke="#005B43" stroke-width="1"/>
+  
+  <!-- Yorum çizgileri -->
+  <rect x="42" y="38" width="40" height="3" rx="1.5" fill="#005B43" opacity="0.8"/>
+  <rect x="42" y="46" width="32" height="3" rx="1.5" fill="#005B43" opacity="0.6"/>
+  <rect x="42" y="54" width="36" height="3" rx="1.5" fill="#005B43" opacity="0.6"/>
+  
+  <!-- Küçük yorum baloncuğu -->
+  <path d="M75 72 C75 69 77 67 80 67 L98 67 C101 67 103 69 103 72 L103 82 C103 85 101 87 98 87 L84 87 L79 92 L82 87 C77 87 75 85 75 82 Z" 
+        fill="white" opacity="0.9" stroke="#005B43" stroke-width="1"/>
+  
+  <!-- Küçük çizgiler -->
+  <rect x="82" y="74" width="12" height="2" rx="1" fill="#005B43" opacity="0.6"/>
+  <rect x="82" y="79" width="10" height="2" rx="1" fill="#005B43" opacity="0.5"/>
+  
+  <!-- Tepki noktaları -->
+  <circle cx="46" cy="94" r="6" fill="#10b981" opacity="0.9" stroke="white" stroke-width="1"/>
+  <circle cx="50" cy="97" r="2" fill="white"/>
+  
+  <circle cx="62" cy="98" r="6" fill="#ef4444" opacity="0.9" stroke="white" stroke-width="1"/>
+  <path d="M59 96 L62 99 L65 96 L64 97 L62 101 L60 97 Z" fill="white"/>
+  
+  <circle cx="78" cy="94" r="6" fill="#f59e0b" opacity="0.9" stroke="white" stroke-width="1"/>
+  <polygon points="78,92 79,95 82,95 80,97 81,100 78,98 75,100 76,97 74,95 77,95" fill="white"/>
+</svg>

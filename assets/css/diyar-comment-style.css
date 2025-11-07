@@ -1,0 +1,2667 @@
+
+/* Manga Diyarı Yorum Eklentisi - Mobile-First Modern Tasarım */
+
+/* CSS Variables - Mobil Optimized */
+:root {
+    /* Ana Renkler */
+    --primary: #2563eb;
+    --primary-light: #3b82f6;
+    --primary-dark: #1d4ed8;
+    --secondary: #64748b;
+    
+    /* Arkaplan Renkleri */
+    --bg-primary: #ffffff;
+    --bg-secondary: #f8fafc;
+    --bg-card: #f1f5f9;
+    --bg-hover: #e2e8f0;
+    
+    /* Metin Renkleri */
+    --text-primary: #1e293b;
+    --text-secondary: #475569;
+    --text-muted: #94a3b8;
+    
+    /* Sınırlar */
+    --border: #e2e8f0;
+    --border-hover: #cbd5e1;
+    
+    /* Durum Renkleri */
+    --success: #10b981;
+    --error: #ef4444;
+    --warning: #f59e0b;
+    
+    /* Mobil Boyutlar */
+    --radius: 8px;
+    --radius-sm: 6px;
+    --shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 4px 8px -2px rgba(0, 0, 0, 0.1);
+    
+    /* Mobil Spacing */
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 0.75rem;
+    --spacing-lg: 1rem;
+    --spacing-xl: 1.25rem;
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg-primary: #0f172a;
+        --bg-secondary: #1e293b;
+        --bg-card: #334155;
+        --bg-hover: #475569;
+        --text-primary: #f8fafc;
+        --text-secondary: #cbd5e1;
+        --text-muted: #94a3b8;
+        --border: #334155;
+        --border-hover: #475569;
+    }
+}
+
+/* Tablet için boyutları artır */
+@media (min-width: 768px) {
+    :root {
+        --radius: 10px;
+        --radius-sm: 7px;
+        --shadow-lg: 0 6px 12px -2px rgba(0, 0, 0, 0.1);
+        --spacing-md: 1rem;
+        --spacing-lg: 1.25rem;
+        --spacing-xl: 1.5rem;
+    }
+}
+
+/* Desktop için boyutları maksimize et */
+@media (min-width: 1024px) {
+    :root {
+        --radius: 12px;
+        --radius-sm: 8px;
+        --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+        --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        --spacing-lg: 1.5rem;
+        --spacing-xl: 2rem;
+    }
+}
+
+/* Reset ve Base - Mobile First */
+.comments-area {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    line-height: 1.5;
+    color: var(--text-primary);
+    background: var(--bg-primary);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    margin: var(--spacing-lg) 0;
+    border: 1px solid var(--border);
+    font-size: 14px; /* Mobil için küçük */
+}
+
+.comments-area.diyar-color-light {
+    --bg-primary: #ffffff;
+    --bg-secondary: #f8fafc;
+    --bg-card: #f1f5f9;
+    --bg-hover: #e2e8f0;
+    --text-primary: #1e293b;
+    --text-secondary: #475569;
+    --text-muted: #94a3b8;
+    --border: rgba(15, 23, 42, 0.08);
+    --border-hover: rgba(15, 23, 42, 0.16);
+}
+
+.comments-area.diyar-color-dark {
+    --bg-primary: #0b0b0f;
+    --bg-secondary: #141722;
+    --bg-card: #1b1e29;
+    --bg-hover: #262a36;
+    --text-primary: #f8fafc;
+    --text-secondary: #cbd5f5;
+    --text-muted: #94a3b8;
+    --border: rgba(148, 163, 184, 0.2);
+    --border-hover: rgba(148, 163, 184, 0.35);
+    color: var(--text-primary);
+}
+
+.comments-area * {
+    box-sizing: border-box;
+}
+
+/* Tablet ve üstü için */
+@media (min-width: 768px) {
+    .comments-area {
+        font-size: 15px;
+        margin: var(--spacing-xl) 0;
+    }
+}
+
+/* Desktop için */
+@media (min-width: 1024px) {
+    .comments-area {
+        font-size: 16px;
+        margin: 2rem 0;
+    }
+}
+
+/* 1. REACTIONS SECTION - Mobile First */
+.diyar-reactions-section {
+    background: var(--bg-secondary);
+    padding: var(--spacing-lg);
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+}
+
+.reactions-header h3 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin: 0 0 var(--spacing-sm);
+    color: var(--text-primary);
+}
+
+.total-reactions {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    margin-bottom: var(--spacing-lg);
+}
+
+.reactions {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Mobilde 2 kolon */
+    gap: var(--spacing-sm);
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+.reaction {
+    background: var(--bg-primary);
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    padding: var(--spacing-md) var(--spacing-sm);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-xs);
+    min-height: 60px; /* Touch-friendly mobil */
+}
+
+.reaction:hover {
+    border-color: var(--primary);
+    box-shadow: var(--shadow);
+    transform: translateY(-1px);
+}
+
+.reaction.selected {
+    border-color: var(--primary);
+    background: var(--primary);
+    color: white;
+    box-shadow: var(--shadow-lg);
+}
+
+.reaction .emoji {
+    font-size: 1.25rem; /* Mobilde küçük */
+    display: block;
+}
+
+.reaction span:not(.count) {
+    font-size: 0.65rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+
+.reaction.selected span:not(.count) {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.reaction .count {
+    background: var(--bg-card);
+    color: var(--text-primary);
+    padding: 0.125rem 0.375rem;
+    border-radius: 12px;
+    font-size: 0.65rem;
+    font-weight: 600;
+    min-width: 20px;
+    text-align: center;
+}
+
+.reaction.selected .count {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+}
+
+/* Tablet için reactions */
+@media (min-width: 768px) {
+    .diyar-reactions-section {
+        padding: var(--spacing-xl);
+    }
+    
+    .reactions {
+        grid-template-columns: repeat(3, 1fr);
+        gap: var(--spacing-md);
+        max-width: 500px;
+    }
+    
+    .reaction {
+        padding: var(--spacing-md);
+        min-height: 70px;
+    }
+    
+    .reaction .emoji {
+        font-size: 1.375rem;
+    }
+    
+    .reaction span:not(.count) {
+        font-size: 0.7rem;
+    }
+    
+    .reaction .count {
+        font-size: 0.7rem;
+        min-width: 22px;
+    }
+}
+
+/* Desktop için reactions */
+@media (min-width: 1024px) {
+    .diyar-reactions-section {
+        padding: 2rem;
+    }
+    
+    .reactions {
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 1rem;
+        max-width: 600px;
+    }
+    
+    .reaction {
+        padding: 1rem 0.75rem;
+        min-height: 80px;
+    }
+    
+    .reaction .emoji {
+        font-size: 1.5rem;
+    }
+    
+    .reaction span:not(.count) {
+        font-size: 0.75rem;
+    }
+    
+    .reaction .count {
+        font-size: 0.75rem;
+        min-width: 24px;
+    }
+}
+
+/* 2. COMMENTS HEADER - Mobile First */
+.comments-header {
+    background: var(--bg-secondary);
+    padding: var(--spacing-lg) var(--spacing-md);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+}
+
+.comments-title {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    color: var(--text-primary);
+}
+
+.comment-count {
+    background: var(--primary);
+    color: white;
+    padding: 0.125rem 0.5rem;
+    border-radius: 12px;
+    font-size: 0.65rem;
+    font-weight: 600;
+}
+
+/* Tablet için header */
+@media (min-width: 768px) {
+    .comments-header {
+        padding: var(--spacing-xl) var(--spacing-lg);
+    }
+    
+    .comments-title {
+        font-size: 1.0625rem;
+    }
+    
+    .comment-count {
+        font-size: 0.7rem;
+        padding: 0.1875rem 0.625rem;
+    }
+}
+
+/* Desktop için header */
+@media (min-width: 1024px) {
+    .comments-header {
+        padding: 1.5rem 2rem;
+    }
+    
+    .comments-title {
+        font-size: 1.125rem;
+    }
+    
+    .comment-count {
+        font-size: 0.75rem;
+        padding: 0.25rem 0.75rem;
+    }
+}
+
+/* Sorting Dropdown - Mobile First */
+.comment-sorting {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+}
+
+.comment-sorting label {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.sort-dropdown {
+    position: relative;
+}
+
+.sort-dropdown-btn {
+    background: var(--bg-primary);
+    border: 1px solid var(--border);
+    color: var(--text-primary);
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    transition: all 0.2s ease;
+    min-height: 36px; /* Touch-friendly */
+}
+
+.sort-dropdown-btn:hover {
+    border-color: var(--primary);
+    box-shadow: var(--shadow);
+}
+
+.sort-dropdown-btn::after {
+    content: '▼';
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    transition: transform 0.2s ease;
+}
+
+.sort-dropdown.open .sort-dropdown-btn::after {
+    transform: rotate(180deg);
+}
+
+.sort-dropdown-menu {
+    position: absolute;
+    top: calc(100% + 0.25rem);
+    left: 0;
+    right: 0;
+    background: var(--bg-primary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-lg);
+    z-index: 50;
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-0.5rem);
+    transition: all 0.2s ease;
+    min-width: 120px;
+}
+
+.sort-dropdown.open .sort-dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.sort-option {
+    padding: var(--spacing-sm) var(--spacing-md);
+    cursor: pointer;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    transition: all 0.2s ease;
+}
+
+.sort-option:hover {
+    background: var(--bg-hover);
+    color: var(--text-primary);
+}
+
+.sort-option.active {
+    background: var(--primary);
+    color: white;
+}
+
+/* Tablet için sorting */
+@media (min-width: 768px) {
+    .comment-sorting label {
+        font-size: 0.85rem;
+    }
+    
+    .sort-dropdown-btn {
+        font-size: 0.85rem;
+        padding: var(--spacing-sm) var(--spacing-lg);
+    }
+    
+    .sort-option {
+        font-size: 0.85rem;
+        padding: var(--spacing-md) var(--spacing-lg);
+    }
+}
+
+/* Desktop için sorting */
+@media (min-width: 1024px) {
+    .comment-sorting {
+        gap: var(--spacing-sm);
+    }
+    
+    .comment-sorting label {
+        font-size: 0.875rem;
+    }
+    
+    .sort-dropdown-btn {
+        font-size: 0.875rem;
+        padding: 0.5rem 1rem;
+    }
+    
+    .sort-dropdown-btn::after {
+        font-size: 0.75rem;
+    }
+    
+    .sort-dropdown-menu {
+        top: calc(100% + 0.25rem);
+        min-width: 140px;
+    }
+    
+    .sort-option {
+        font-size: 0.875rem;
+        padding: 0.75rem 1rem;
+    }
+}
+
+/* 3. COMMENT FORM - Mobile First */
+#diyar-comment-form-wrapper {
+    background: var(--bg-primary);
+    padding: var(--spacing-lg);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+    align-items: flex-start;
+}
+
+.comment-user-info img {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 2px solid var(--border);
+    object-fit: cover;
+}
+
+.comment-form {
+    flex: 1;
+    width: 100%;
+}
+
+#diyar-editor-container {
+    background: var(--bg-card);
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition: all 0.2s ease;
+    width: 100%;
+}
+
+#diyar-editor-container:focus-within {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
+}
+
+#diyar-editor-toolbar {
+    background: var(--bg-secondary);
+    padding: var(--spacing-sm);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    gap: var(--spacing-xs);
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.diyar-toolbar-button {
+    background: var(--bg-primary);
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    border-radius: var(--radius-sm);
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-weight: 600;
+    font-size: 0.75rem;
+}
+
+.diyar-toolbar-button:hover {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+}
+
+.comment-form textarea {
+    width: 100%;
+    background: transparent;
+    border: none;
+    color: var(--text-primary);
+    padding: var(--spacing-md);
+    min-height: 100px;
+    font-size: 16px; /* iOS zoom engellemek için */
+    line-height: 1.5;
+    resize: vertical;
+    outline: none;
+    font-family: inherit;
+}
+
+.comment-form textarea::placeholder {
+    color: var(--text-muted);
+}
+
+.form-submit {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    align-items: stretch;
+    padding: var(--spacing-md);
+    background: var(--bg-secondary);
+}
+
+.char-counter {
+    color: var(--text-muted);
+    font-size: 0.7rem;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    background: var(--bg-primary);
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+    align-self: center;
+    order: 1;
+}
+
+.char-counter.warning {
+    color: var(--warning);
+    border-color: var(--warning);
+}
+
+.char-counter.danger {
+    color: var(--error);
+    border-color: var(--error);
+}
+
+.diyar-submit, #submit {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: var(--spacing-lg) var(--spacing-xl);
+    border-radius: var(--radius-sm);
+    font-size: 1rem; /* Touch-friendly */
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    width: 100%;
+    min-height: 48px; /* Touch target */
+    order: 2;
+}
+
+.diyar-submit:hover, #submit:hover {
+    background: var(--primary-dark);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-lg);
+}
+
+/* Tablet için form */
+@media (min-width: 768px) {
+    #diyar-comment-form-wrapper {
+        flex-direction: row;
+        padding: var(--spacing-xl);
+        gap: var(--spacing-lg);
+    }
+    
+    .comment-user-info img {
+        width: 42px;
+        height: 42px;
+    }
+    
+    #diyar-editor-toolbar {
+        padding: var(--spacing-md);
+        gap: var(--spacing-sm);
+    }
+    
+    .diyar-toolbar-button {
+        width: 34px;
+        height: 34px;
+        font-size: 0.8rem;
+    }
+    
+    .comment-form textarea {
+        min-height: 110px;
+        font-size: 15px;
+        padding: var(--spacing-lg);
+    }
+    
+    .form-submit {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: var(--spacing-lg);
+    }
+    
+    .char-counter {
+        font-size: 0.75rem;
+        order: 0;
+    }
+    
+    .diyar-submit, #submit {
+        width: auto;
+        min-height: 42px;
+        font-size: 0.9rem;
+        padding: var(--spacing-md) var(--spacing-xl);
+        order: 0;
+    }
+}
+
+/* Desktop için form */
+@media (min-width: 1024px) {
+    #diyar-comment-form-wrapper {
+        padding: 2rem;
+    }
+    
+    .comment-user-info img {
+        width: 48px;
+        height: 48px;
+    }
+    
+    #diyar-editor-container:focus-within {
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+    
+    #diyar-editor-toolbar {
+        padding: 0.75rem 1rem;
+        gap: 0.5rem;
+    }
+    
+    .diyar-toolbar-button {
+        width: 32px;
+        height: 32px;
+        font-size: 0.875rem;
+    }
+    
+    .comment-form textarea {
+        min-height: 120px;
+        font-size: 0.875rem;
+        line-height: 1.6;
+        padding: 1rem;
+    }
+    
+    .form-submit {
+        padding: 1rem;
+    }
+    
+    .diyar-submit, #submit {
+        font-size: 0.875rem;
+        min-height: 38px;
+        padding: 0.75rem 1.5rem;
+    }
+}
+
+/* 4. COMMENTS LIST - Mobile First */
+.diyar-comments-main {
+    background: var(--bg-primary);
+}
+
+.comment-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.comment-list .children {
+    list-style: none;
+    padding-left: var(--spacing-lg);
+    border-left: 1px solid var(--border);
+    margin-top: var(--spacing-sm);
+}
+
+.diyar-comment-item {
+    padding: var(--spacing-md);
+    border-bottom: 1px solid var(--border);
+    transition: all 0.2s ease;
+}
+
+.diyar-comment-item:hover {
+    background: var(--bg-secondary);
+}
+
+.comment-body {
+    display: flex;
+    gap: var(--spacing-sm);
+    align-items: flex-start;
+}
+
+.comment-author img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 2px solid var(--border);
+    object-fit: cover;
+}
+
+.comment-content {
+    flex: 1;
+}
+
+.comment-author-meta {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-xs);
+    flex-wrap: wrap;
+}
+
+.comment-author-meta .author-name {
+    color: var(--text-primary);
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 0.8rem;
+}
+
+.comment-author-meta .author-name:hover {
+    color: var(--primary);
+}
+
+/* Mobile Level Rozeti - ÇOK KÜÇÜK */
+.user-level-oval {
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    color: white;
+    padding: 2px 6px !important;
+    border-radius: 8px !important;
+    font-size: 0.5rem !important;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.25px;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.125rem;
+    box-shadow: 0 1px 2px rgba(37, 99, 235, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    transition: all 0.2s ease;
+}
+
+.user-level-oval:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(37, 99, 235, 0.4);
+}
+
+/* Seviye ikonu kaldırıldı */
+.user-level-oval::before {
+    display: none;
+}
+
+/* User Badges - Mobile First */
+.user-badges {
+    display: inline-flex;
+    gap: 0.125rem;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.badge-item-with-text {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.125rem;
+    background: rgba(156, 163, 175, 0.1);
+    padding: 0.0625rem 0.25rem;
+    border-radius: 8px;
+    font-size: 0.45rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    transition: all 0.2s ease;
+    border: 1px solid rgba(156, 163, 175, 0.2);
+}
+
+.badge-item-with-text:hover {
+    background: rgba(37, 99, 235, 0.1);
+    color: var(--primary);
+    border-color: rgba(37, 99, 235, 0.3);
+    transform: translateY(-1px);
+}
+
+.badge-item-with-text svg {
+    width: 8px;
+    height: 8px;
+    opacity: 0.8;
+}
+
+.badge-more {
+    background: var(--bg-card);
+    color: var(--text-muted);
+    padding: 0.0625rem 0.1875rem;
+    border-radius: 6px;
+    font-size: 0.45rem;
+    font-weight: 600;
+    border: 1px solid var(--border);
+}
+
+.comment-metadata {
+    color: var(--text-muted);
+    font-size: 0.65rem;
+}
+
+.comment-metadata .comment-time {
+    color: var(--text-muted);
+    text-decoration: none;
+}
+
+.comment-metadata .comment-time:hover {
+    color: var(--primary);
+}
+
+.comment-text {
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin: var(--spacing-sm) 0;
+    font-size: 0.8rem;
+}
+
+.comment-text a {
+    color: var(--primary);
+    text-decoration: none;
+}
+
+.comment-text a:hover {
+    text-decoration: underline;
+}
+
+/* Tablet için comments */
+@media (min-width: 768px) {
+    .comment-list .children {
+        padding-left: 2rem;
+        border-left-width: 2px;
+        margin-top: var(--spacing-md);
+    }
+    
+    .diyar-comment-item {
+        padding: var(--spacing-lg);
+    }
+    
+    .comment-body {
+        gap: var(--spacing-md);
+    }
+    
+    .comment-author img {
+        width: 38px;
+        height: 38px;
+    }
+    
+    .comment-author-meta {
+        gap: var(--spacing-md);
+        margin-bottom: var(--spacing-sm);
+    }
+    
+    .comment-author-meta .author-name {
+        font-size: 0.85rem;
+    }
+    
+    .user-level-oval {
+        padding: 3px 8px !important;
+        font-size: 0.6rem !important;
+        border-radius: 10px !important;
+        letter-spacing: 0.3px;
+    }
+    
+    .user-badges {
+        gap: 0.1875rem;
+    }
+    
+    .badge-item-with-text {
+        padding: 0.0875rem 0.375rem;
+        font-size: 0.525rem;
+        border-radius: 10px;
+    }
+    
+    .badge-item-with-text svg {
+        width: 10px;
+        height: 10px;
+    }
+    
+    .comment-metadata {
+        font-size: 0.7rem;
+    }
+    
+    .comment-text {
+        font-size: 0.85rem;
+        margin: var(--spacing-md) 0;
+    }
+}
+
+/* Desktop için comments */
+@media (min-width: 1024px) {
+    .comment-list .children {
+        padding-left: 3rem;
+        margin-top: 1rem;
+    }
+    
+    .diyar-comment-item {
+        padding: 1.5rem 2rem;
+    }
+    
+    .comment-body {
+        gap: 1rem;
+    }
+    
+    .comment-author img {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .comment-author-meta {
+        gap: 0.75rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .comment-author-meta .author-name {
+        font-size: 0.875rem;
+    }
+    
+    .user-level-oval {
+        padding: 0.25rem 0.75rem !important;
+        font-size: 0.625rem !important;
+        border-radius: 20px !important;
+        letter-spacing: 0.05em;
+        gap: 0.25rem;
+    }
+    
+    .user-badges {
+        gap: 0.25rem;
+    }
+    
+    .badge-item-with-text {
+        padding: 0.125rem 0.5rem;
+        font-size: 0.625rem;
+        border-radius: 16px;
+    }
+    
+    .badge-item-with-text svg {
+        width: 12px;
+        height: 12px;
+    }
+    
+    .badge-more {
+        padding: 0.125rem 0.375rem;
+        font-size: 0.625rem;
+        border-radius: 12px;
+    }
+    
+    .comment-metadata {
+        font-size: 0.75rem;
+    }
+    
+    .comment-text {
+        font-size: 0.875rem;
+        line-height: 1.6;
+        margin: 0.75rem 0;
+    }
+}
+
+/* 5. COMMENT ACTIONS - Mobile First Modern */
+.comment-actions-modern {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: var(--spacing-sm);
+    padding-top: var(--spacing-sm);
+    border-top: 1px solid var(--border);
+    gap: var(--spacing-xs);
+    flex-wrap: wrap;
+}
+
+.comment-interaction-buttons {
+    display: flex;
+    gap: var(--spacing-sm);
+    align-items: center;
+}
+
+/* Modern Icon'lu Butonlar - Mobile First */
+.heart-like-btn {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.25rem !important;
+    background: transparent !important;
+    border: 1px solid var(--border) !important;
+    padding: 0.375rem 0.5rem !important;
+    border-radius: 16px !important;
+    cursor: pointer !important;
+    font-size: 0.75rem !important;
+    transition: all 0.2s ease !important;
+    color: var(--text-muted) !important;
+    font-family: inherit !important;
+    min-height: 32px !important;
+}
+
+.heart-like-btn:hover {
+    background: rgba(239, 68, 68, 0.1) !important;
+    color: #ef4444 !important;
+    border-color: rgba(239, 68, 68, 0.3) !important;
+    transform: translateY(-1px) !important;
+}
+
+.heart-like-btn.active {
+    color: #ef4444 !important;
+    background: rgba(239, 68, 68, 0.1) !important;
+    border-color: #ef4444 !important;
+}
+
+.heart-icon {
+    width: 14px !important;
+    height: 14px !important;
+    flex-shrink: 0 !important;
+}
+
+.heart-like-btn.active .heart-icon {
+    fill: #ef4444 !important;
+}
+
+.like-count {
+    font-weight: 600 !important;
+    font-size: 0.65rem !important;
+    min-width: 14px !important;
+}
+
+.reply-btn-modern {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.25rem !important;
+    background: transparent !important;
+    border: 1px solid var(--border) !important;
+    padding: 0.375rem 0.5rem !important;
+    border-radius: 16px !important;
+    cursor: pointer !important;
+    font-size: 0.75rem !important;
+    transition: all 0.2s ease !important;
+    color: var(--text-muted) !important;
+    font-family: inherit !important;
+    min-height: 32px !important;
+}
+
+.reply-btn-modern:hover {
+    background: rgba(37, 99, 235, 0.1) !important;
+    color: var(--primary) !important;
+    border-color: rgba(37, 99, 235, 0.3) !important;
+    transform: translateY(-1px) !important;
+}
+
+.reply-icon {
+    width: 14px !important;
+    height: 14px !important;
+    flex-shrink: 0 !important;
+}
+
+.reply-text {
+    font-size: 0.65rem !important;
+    font-weight: 500 !important;
+}
+
+/* Tablet için action buttons */
+@media (min-width: 768px) {
+    .comment-actions-modern {
+        margin-top: var(--spacing-md);
+        padding-top: var(--spacing-md);
+        gap: var(--spacing-sm);
+    }
+    
+    .comment-interaction-buttons {
+        gap: var(--spacing-md);
+    }
+    
+    .heart-like-btn,
+    .reply-btn-modern {
+        gap: 0.3125rem !important;
+        padding: 0.4375rem 0.625rem !important;
+        font-size: 0.8125rem !important;
+        min-height: 36px !important;
+    }
+    
+    .heart-icon, .reply-icon {
+        width: 16px !important;
+        height: 16px !important;
+    }
+    
+    .like-count {
+        font-size: 0.7rem !important;
+        min-width: 15px !important;
+    }
+    
+    .reply-text {
+        font-size: 0.7rem !important;
+    }
+}
+
+/* Desktop için action buttons */
+@media (min-width: 1024px) {
+    .comment-actions-modern {
+        margin-top: 1rem;
+        padding-top: 1rem;
+        gap: var(--spacing-md);
+    }
+    
+    .comment-interaction-buttons {
+        gap: 1rem;
+    }
+    
+    .heart-like-btn,
+    .reply-btn-modern {
+        gap: 0.375rem !important;
+        padding: 0.5rem 0.75rem !important;
+        border-radius: 20px !important;
+        font-size: 0.875rem !important;
+        min-height: 38px !important;
+    }
+    
+    .heart-icon, .reply-icon {
+        width: 18px !important;
+        height: 18px !important;
+    }
+    
+    .like-count {
+        font-size: 0.75rem !important;
+        min-width: 16px !important;
+    }
+    
+    .reply-text {
+        font-size: 0.75rem !important;
+    }
+}
+
+/* Dropdown Menu - Mobile First + PC Desktop DÜZELTMELERİ */
+.comment-menu-dropdown {
+    position: relative;
+    z-index: 100;
+}
+
+.menu-trigger {
+    background: var(--bg-secondary) !important;
+    border: 1px solid var(--border) !important;
+    padding: var(--spacing-sm) !important;
+    border-radius: 50% !important;
+    cursor: pointer !important;
+    color: var(--text-secondary) !important;
+    font-size: 0.875rem !important;
+    transition: all 0.2s ease !important;
+    width: 28px !important;
+    height: 28px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    position: relative !important;
+    z-index: 101 !important;
+}
+
+.menu-trigger:hover {
+    background: var(--bg-hover) !important;
+    color: var(--text-primary) !important;
+    border-color: var(--primary) !important;
+}
+
+.menu-trigger .dots {
+    font-weight: bold;
+    line-height: 1;
+    user-select: none;
+}
+
+.dropdown-menu {
+    position: absolute !important;
+    top: calc(100% + 0.25rem) !important;
+    right: 0 !important;
+    left: auto !important;
+    background: var(--bg-primary) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: var(--radius-sm) !important;
+    box-shadow: 0 4px 8px -2px rgba(0, 0, 0, 0.1) !important;
+    min-width: 120px !important;
+    max-width: 180px !important;
+    z-index: 999999 !important; /* Mobilde çok yüksek */
+    display: none !important;
+    overflow: hidden !important;
+    margin-top: 0 !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    transform: translateY(-0.5rem) scale(0.95) !important;
+    transition: all 0.15s ease !important;
+    pointer-events: none !important;
+}
+
+.dropdown-menu.show {
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: translateY(0) scale(1) !important;
+    pointer-events: all !important;
+}
+
+.dropdown-item {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
+    width: 100% !important;
+    padding: 0.5rem 0.75rem !important;
+    border: none !important;
+    background: none !important;
+    color: var(--text-primary) !important;
+    font-size: 0.75rem !important;
+    cursor: pointer !important;
+    text-decoration: none !important;
+    transition: all 0.15s ease !important;
+    font-family: inherit !important;
+    text-align: left !important;
+    font-weight: 500 !important;
+}
+
+.dropdown-item:hover {
+    background: var(--bg-hover) !important;
+    color: var(--primary) !important;
+}
+
+.dropdown-item .icon {
+    font-size: 0.875rem !important;
+    opacity: 0.8 !important;
+    width: 14px !important;
+    flex-shrink: 0 !important;
+}
+
+.dropdown-divider {
+    height: 1px;
+    background: var(--border);
+    margin: var(--spacing-xs) 0;
+}
+
+/* Tablet için dropdown */
+@media (min-width: 768px) {
+    .menu-trigger {
+        width: 32px !important;
+        height: 32px !important;
+        font-size: 1rem !important;
+    }
+    
+    .dropdown-menu {
+        min-width: 140px !important;
+        max-width: 200px !important;
+        box-shadow: 0 6px 12px -2px rgba(0, 0, 0, 0.1) !important;
+    }
+    
+    .dropdown-item {
+        padding: 0.625rem 0.875rem !important;
+        font-size: 0.8rem !important;
+        gap: 0.625rem !important;
+    }
+    
+    .dropdown-item .icon {
+        width: 15px !important;
+    }
+}
+
+/* Desktop için dropdown - PC DÜZELTMELERİ */
+@media (min-width: 1024px) {
+    .menu-trigger {
+        width: 36px !important;
+        height: 36px !important;
+        font-size: 1rem !important;
+    }
+    
+    .dropdown-menu {
+        right: 0 !important;
+        min-width: 180px !important;
+        max-width: 220px !important;
+        top: calc(100% + 0.75rem) !important;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
+        z-index: 1000 !important; /* PC'de makul z-index */
+    }
+    
+    .dropdown-item {
+        padding: 0.875rem 1.125rem !important;
+        font-size: 0.875rem !important;
+        gap: 0.75rem !important;
+    }
+    
+    .dropdown-item .icon {
+        width: 16px !important;
+    }
+    
+    .dropdown-divider {
+        margin: 0.5rem 0;
+    }
+}
+
+/* Dark mode uyumluluğu */
+@media (prefers-color-scheme: dark) {
+    .dropdown-menu {
+        background: var(--bg-secondary) !important;
+        border-color: var(--border) !important;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 10px 10px -5px rgba(0, 0, 0, 0.2) !important;
+    }
+}
+
+/* Yanıt Formu Tasarımı - Mobile First */
+.reply-form-container {
+    margin: var(--spacing-md) 0 0 var(--spacing-lg);
+    background: var(--bg-secondary);
+    border-radius: var(--radius);
+    padding: var(--spacing-lg);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+}
+
+.reply-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+.reply-form textarea {
+    width: 100%;
+    min-height: 80px;
+    padding: var(--spacing-md);
+    border: 2px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: inherit;
+    font-size: 0.8rem;
+    line-height: 1.4;
+    resize: vertical;
+    transition: all 0.2s ease;
+}
+
+.reply-form textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
+}
+
+.reply-form textarea::placeholder {
+    color: var(--text-muted);
+}
+
+.reply-form-actions {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    align-items: stretch;
+}
+
+.reply-cancel, .reply-submit {
+    padding: var(--spacing-md) var(--spacing-lg);
+    border: none;
+    border-radius: var(--radius-sm);
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: inherit;
+    min-height: 44px; /* Touch-friendly */
+    width: 100%;
+}
+
+.reply-cancel {
+    background: var(--bg-hover);
+    color: var(--text-secondary);
+    border: 1px solid var(--border);
+}
+
+.reply-cancel:hover {
+    background: var(--border);
+    color: var(--text-primary);
+}
+
+.reply-submit {
+    background: var(--primary);
+    color: white;
+}
+
+.reply-submit:hover {
+    background: var(--primary-dark);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-lg);
+}
+
+.reply-submit:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Tablet için reply form */
+@media (min-width: 768px) {
+    .reply-form-container {
+        margin: var(--spacing-lg) 0 0 2rem;
+        padding: var(--spacing-xl);
+    }
+    
+    .reply-form textarea {
+        min-height: 90px;
+        font-size: 0.85rem;
+        padding: var(--spacing-lg);
+    }
+    
+    .reply-form-actions {
+        flex-direction: row;
+        justify-content: flex-end;
+        gap: var(--spacing-md);
+        align-items: center;
+    }
+    
+    .reply-cancel, .reply-submit {
+        width: auto;
+        min-height: 40px;
+        font-size: 0.85rem;
+    }
+}
+
+/* Desktop için reply form */
+@media (min-width: 1024px) {
+    .reply-form-container {
+        margin: 1rem 0 0 3rem;
+        padding: 1.5rem;
+    }
+    
+    .reply-form {
+        gap: 1rem;
+    }
+    
+    .reply-form textarea {
+        min-height: 100px;
+        font-size: 0.875rem;
+        line-height: 1.5;
+        padding: 1rem;
+    }
+    
+    .reply-form textarea:focus {
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+    
+    .reply-form-actions {
+        gap: 0.75rem;
+    }
+    
+    .reply-cancel, .reply-submit {
+        padding: 0.75rem 1.5rem;
+        font-size: 0.875rem;
+        min-height: 38px;
+    }
+}
+
+/* YORUM DÜZENLEME FORMU - Mobile First */
+.comment-edit-form {
+    margin-top: var(--spacing-md);
+    padding: var(--spacing-lg);
+    background: var(--bg-secondary);
+    border-radius: var(--radius);
+    border: 2px solid var(--border);
+    box-shadow: var(--shadow);
+    animation: slideDown 0.3s ease;
+}
+
+.comment-edit-toolbar {
+    display: flex;
+    gap: var(--spacing-xs);
+    margin-bottom: var(--spacing-md);
+    padding: var(--spacing-sm);
+    background: var(--bg-card);
+    border-radius: var(--radius-sm);
+    border-bottom: 1px solid var(--border);
+    flex-wrap: wrap;
+}
+
+.comment-edit-toolbar .diyar-toolbar-button {
+    background: var(--bg-primary);
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    border-radius: var(--radius-sm);
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-weight: 600;
+    font-size: 0.7rem;
+}
+
+.comment-edit-toolbar .diyar-toolbar-button:hover {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+    transform: translateY(-1px);
+}
+
+.comment-edit-form textarea {
+    width: 100%;
+    min-height: 80px;
+    padding: var(--spacing-md);
+    border: 2px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: inherit;
+    font-size: 0.8rem;
+    line-height: 1.5;
+    resize: vertical;
+    transition: all 0.2s ease;
+    box-sizing: border-box;
+}
+
+.comment-edit-form textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
+}
+
+.comment-edit-form textarea::placeholder {
+    color: var(--text-muted);
+}
+
+.comment-edit-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: var(--spacing-md);
+    padding-top: var(--spacing-md);
+    border-top: 1px solid var(--border);
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+}
+
+.comment-edit-actions > div:first-child {
+    flex: 1;
+}
+
+.comment-edit-actions > div:last-child {
+    display: flex;
+    gap: var(--spacing-sm);
+    flex-wrap: wrap;
+}
+
+.comment-edit-cancel, .comment-edit-save {
+    padding: var(--spacing-md) var(--spacing-lg);
+    border: none;
+    border-radius: var(--radius-sm);
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: inherit;
+    min-height: 44px; /* Touch-friendly */
+    min-width: 80px;
+}
+
+.comment-edit-cancel {
+    background: var(--bg-hover);
+    color: var(--text-secondary);
+    border: 1px solid var(--border);
+}
+
+.comment-edit-cancel:hover {
+    background: var(--border);
+    color: var(--text-primary);
+    transform: translateY(-1px);
+}
+
+.comment-edit-save {
+    background: var(--primary);
+    color: white;
+}
+
+.comment-edit-save:hover {
+    background: var(--primary-dark);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-lg);
+}
+
+.comment-edit-save:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+/* Tablet için edit form */
+@media (min-width: 768px) {
+    .comment-edit-form {
+        padding: var(--spacing-xl);
+        margin-top: var(--spacing-lg);
+    }
+    
+    .comment-edit-toolbar {
+        gap: var(--spacing-sm);
+        padding: var(--spacing-md);
+    }
+    
+    .comment-edit-toolbar .diyar-toolbar-button {
+        width: 30px;
+        height: 30px;
+        font-size: 0.75rem;
+    }
+    
+    .comment-edit-form textarea {
+        min-height: 100px;
+        font-size: 0.85rem;
+        padding: var(--spacing-lg);
+    }
+    
+    .comment-edit-actions {
+        flex-wrap: nowrap;
+    }
+    
+    .comment-edit-cancel, .comment-edit-save {
+        font-size: 0.85rem;
+        min-height: 40px;
+    }
+}
+
+/* Desktop için edit form */
+@media (min-width: 1024px) {
+    .comment-edit-form {
+        padding: 1.5rem;
+        margin-top: 1rem;
+    }
+    
+    .comment-edit-toolbar {
+        gap: 0.5rem;
+        padding: 0.75rem 1rem;
+    }
+    
+    .comment-edit-toolbar .diyar-toolbar-button {
+        width: 32px;
+        height: 32px;
+        font-size: 0.875rem;
+    }
+    
+    .comment-edit-form textarea {
+        min-height: 120px;
+        font-size: 0.875rem;
+        line-height: 1.6;
+        padding: 1rem;
+    }
+    
+    .comment-edit-form textarea:focus {
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+    
+    .comment-edit-actions {
+        margin-top: 1rem;
+        padding-top: 1rem;
+    }
+    
+    .comment-edit-actions > div:last-child {
+        gap: 0.75rem;
+    }
+    
+    .comment-edit-cancel, .comment-edit-save {
+        padding: 0.75rem 1.5rem;
+        font-size: 0.875rem;
+        min-height: 38px;
+    }
+}
+
+/* Yorum düzenleme animasyonu */
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        max-height: 0;
+        transform: translateY(-1rem);
+    }
+    to {
+        opacity: 1;
+        max-height: 500px;
+        transform: translateY(0);
+    }
+}
+
+/* 6. GIF SUPPORT - Mobile First */
+.gif-container {
+    margin: var(--spacing-sm) 0;
+}
+
+.gif-container img,
+.comment-gif {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--radius-sm);
+    display: block;
+    max-height: 200px; /* Mobilde küçük */
+    object-fit: cover;
+}
+
+/* Tablet için GIF */
+@media (min-width: 768px) {
+    .gif-container {
+        margin: var(--spacing-md) 0;
+    }
+    
+    .gif-container img,
+    .comment-gif {
+        max-height: 250px;
+    }
+}
+
+/* Desktop için GIF */
+@media (min-width: 1024px) {
+    .gif-container {
+        margin: 0.75rem 0;
+    }
+    
+    .gif-container img,
+    .comment-gif {
+        max-height: 300px;
+    }
+}
+
+/* 7. MODERN SPOILER SUPPORT - Mobile First */
+.diyar-spoiler {
+    margin: var(--spacing-sm) 0;
+    display: inline-block;
+    position: relative;
+}
+
+.spoiler-content {
+    background: #000000;
+    color: #000000;
+    padding: 0.1875rem 0.375rem;
+    border-radius: 4px;
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.3s ease;
+    font-size: 0.8rem;
+    display: inline;
+    position: relative;
+}
+
+.spoiler-content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #000000;
+    border-radius: 4px;
+    transition: opacity 0.3s ease;
+}
+
+.spoiler-content:hover::before {
+    opacity: 0.8;
+}
+
+.spoiler-content.revealed {
+    background: transparent;
+    color: var(--text-secondary);
+    cursor: default;
+}
+
+.spoiler-content.revealed::before {
+    display: none;
+}
+
+/* Spoiler ipucu - sadece tablet+ */
+@media (min-width: 768px) {
+    .spoiler-content:not(.revealed):hover::after {
+        content: 'Görmek için tıkla';
+        position: absolute;
+        bottom: -1.5rem;
+        left: 50%;
+        transform: translateX(-50%);
+        background: var(--text-primary);
+        color: var(--bg-primary);
+        padding: 0.25rem 0.5rem;
+        border-radius: 4px;
+        font-size: 0.625rem;
+        white-space: nowrap;
+        z-index: 10;
+    }
+}
+
+/* Tablet için spoiler */
+@media (min-width: 768px) {
+    .diyar-spoiler {
+        margin: var(--spacing-md) 0;
+    }
+    
+    .spoiler-content {
+        padding: 0.21875rem 0.4375rem;
+        font-size: 0.85rem;
+    }
+}
+
+/* Desktop için spoiler */
+@media (min-width: 1024px) {
+    .diyar-spoiler {
+        margin: 0.75rem 0;
+    }
+    
+    .spoiler-content {
+        padding: 0.25rem 0.5rem;
+        font-size: 0.875rem;
+    }
+}
+
+/* 8. AUTH REQUIRED - Mobile First */
+.auth-required-message {
+    background: var(--primary);
+    color: white;
+    padding: var(--spacing-xl);
+    text-align: center;
+}
+
+.auth-required-message h3 {
+    margin: 0 0 var(--spacing-sm);
+    font-size: 1.125rem;
+    font-weight: 600;
+}
+
+.auth-required-message p {
+    margin: 0 0 var(--spacing-lg);
+    opacity: 0.9;
+    font-size: 0.8rem;
+}
+
+.auth-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    align-items: center;
+}
+
+.auth-button {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: var(--spacing-md) var(--spacing-lg);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.8rem;
+    transition: all 0.2s ease;
+    min-height: 44px; /* Touch-friendly */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 120px;
+}
+
+.auth-button:hover {
+    background: rgba(255, 255, 255, 0.3);
+    text-decoration: none;
+    color: white;
+}
+
+.auth-button.primary {
+    background: white;
+    color: var(--primary);
+    border-color: white;
+}
+
+/* Tablet için auth */
+@media (min-width: 768px) {
+    .auth-required-message {
+        padding: var(--spacing-xl) var(--spacing-lg);
+    }
+    
+    .auth-required-message h3 {
+        font-size: 1.1875rem;
+    }
+    
+    .auth-required-message p {
+        font-size: 0.85rem;
+    }
+    
+    .auth-buttons {
+        flex-direction: row;
+        justify-content: center;
+        gap: var(--spacing-md);
+    }
+    
+    .auth-button {
+        font-size: 0.85rem;
+        min-height: 42px;
+    }
+}
+
+/* Desktop için auth */
+@media (min-width: 1024px) {
+    .auth-required-message {
+        padding: 2rem;
+    }
+    
+    .auth-required-message h3 {
+        font-size: 1.25rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .auth-required-message p {
+        font-size: 0.875rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .auth-buttons {
+        gap: 0.75rem;
+    }
+    
+    .auth-button {
+        padding: 0.75rem 1.5rem;
+        font-size: 0.875rem;
+        min-height: 40px;
+    }
+}
+
+/* 9. MISC ELEMENTS - Mobile First */
+#load-more-comments {
+    width: 100%;
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    border: 1px solid var(--border);
+    padding: var(--spacing-lg);
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    font-size: 0.8rem;
+    font-family: inherit;
+    min-height: 48px; /* Touch-friendly */
+}
+
+#load-more-comments:hover {
+    background: var(--bg-hover);
+    border-color: var(--primary);
+}
+
+.no-comments {
+    padding: 2rem var(--spacing-lg);
+    text-align: center;
+    color: var(--text-muted);
+    background: var(--bg-secondary);
+    font-size: 0.8rem;
+}
+
+.comments-closed {
+    padding: var(--spacing-xl) var(--spacing-lg);
+    text-align: center;
+    color: var(--text-muted);
+    background: var(--bg-secondary);
+    font-size: 0.8rem;
+}
+
+/* Tablet için misc */
+@media (min-width: 768px) {
+    #load-more-comments {
+        font-size: 0.85rem;
+        min-height: 44px;
+    }
+    
+    .no-comments {
+        padding: 2.5rem var(--spacing-xl);
+        font-size: 0.85rem;
+    }
+    
+    .comments-closed {
+        padding: var(--spacing-xl);
+        font-size: 0.85rem;
+    }
+}
+
+/* Desktop için misc */
+@media (min-width: 1024px) {
+    #load-more-comments {
+        padding: 1rem;
+        font-size: 0.875rem;
+        min-height: 40px;
+    }
+    
+    .no-comments {
+        padding: 3rem 2rem;
+        font-size: 0.875rem;
+    }
+    
+    .comments-closed {
+        padding: 2rem;
+        font-size: 0.875rem;
+    }
+}
+
+/* 10. NOTIFICATIONS - Mobile First */
+.diyar-notification {
+    position: fixed;
+    top: var(--spacing-lg);
+    right: var(--spacing-lg);
+    background: var(--primary);
+    color: white;
+    padding: var(--spacing-lg) var(--spacing-xl);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-lg);
+    z-index: 10000;
+    font-size: 0.8rem;
+    max-width: 280px;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.diyar-notification.error {
+    background: var(--error);
+}
+
+.diyar-notification.success {
+    background: var(--success);
+}
+
+.notification-close {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    cursor: pointer;
+    padding: 0.1875rem;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+    font-size: 0.75rem;
+}
+
+.notification-close:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* Tablet için notifications */
+@media (min-width: 768px) {
+    .diyar-notification {
+        max-width: 320px;
+        font-size: 0.85rem;
+        gap: var(--spacing-md);
+    }
+    
+    .notification-close {
+        width: 22px;
+        height: 22px;
+    }
+}
+
+/* Desktop için notifications */
+@media (min-width: 1024px) {
+    .diyar-notification {
+        top: 1rem;
+        right: 1rem;
+        padding: 1rem 1.25rem;
+        font-size: 0.875rem;
+        max-width: 350px;
+        gap: 0.75rem;
+    }
+    
+    .notification-close {
+        width: 24px;
+        height: 24px;
+        padding: 0.25rem;
+    }
+}
+
+/* 11. GIF MODAL - Mobile First */
+.gif-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 20000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-md);
+}
+
+.gif-modal-content {
+    background: var(--bg-primary);
+    border-radius: var(--radius);
+    width: 100%;
+    max-width: 400px;
+    max-height: 80vh;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--border);
+    overflow: hidden;
+}
+
+.gif-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-lg);
+    border-bottom: 1px solid var(--border);
+    background: var(--bg-secondary);
+}
+
+.gif-modal-header h3 {
+    margin: 0;
+    color: var(--text-primary);
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.gif-modal-close {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 1.25rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.gif-modal-close:hover {
+    background: var(--error);
+    color: white;
+}
+
+.gif-modal-body {
+    padding: var(--spacing-lg);
+    max-height: calc(80vh - 80px);
+    overflow-y: auto;
+}
+
+#gif-search-input {
+    width: 100%;
+    background: var(--bg-card);
+    border: 2px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-md) var(--spacing-lg);
+    color: var(--text-primary);
+    font-size: 1rem;
+    margin-bottom: var(--spacing-lg);
+    transition: all 0.2s ease;
+    box-sizing: border-box;
+}
+
+#gif-search-input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
+}
+
+#gif-search-input::placeholder {
+    color: var(--text-muted);
+}
+
+.gif-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-sm);
+}
+
+.gif-item {
+    cursor: pointer;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    transition: all 0.2s ease;
+    border: 2px solid var(--border);
+}
+
+.gif-item:hover {
+    transform: scale(1.02);
+    border-color: var(--primary);
+    box-shadow: var(--shadow);
+}
+
+.gif-item img {
+    width: 100%;
+    height: 100px;
+    object-fit: cover;
+    display: block;
+}
+
+.gif-loading,
+.gif-error,
+.gif-no-results,
+.gif-placeholder {
+    text-align: center;
+    padding: 2rem var(--spacing-lg);
+    color: var(--text-muted);
+    font-size: 0.875rem;
+}
+
+.gif-loading {
+    color: var(--primary);
+}
+
+.gif-error {
+    color: var(--error);
+}
+
+/* Tablet için GIF modal */
+@media (min-width: 768px) {
+    .gif-modal {
+        padding: var(--spacing-lg);
+    }
+    
+    .gif-modal-content {
+        max-width: 500px;
+    }
+    
+    .gif-modal-header h3 {
+        font-size: 1.0625rem;
+    }
+    
+    .gif-modal-close {
+        font-size: 1.375rem;
+    }
+    
+    .gif-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: var(--spacing-md);
+    }
+    
+    .gif-item img {
+        height: 110px;
+    }
+}
+
+/* Desktop için GIF modal */
+@media (min-width: 1024px) {
+    .gif-modal {
+        background: rgba(0, 0, 0, 0.5);
+        padding: 1rem;
+    }
+    
+    .gif-modal-content {
+        max-width: 600px;
+    }
+    
+    .gif-modal-header {
+        padding: 1.5rem;
+    }
+    
+    .gif-modal-header h3 {
+        font-size: 1.125rem;
+    }
+    
+    .gif-modal-close {
+        font-size: 1.5rem;
+    }
+    
+    .gif-modal-body {
+        padding: 1.5rem;
+    }
+    
+    .gif-grid {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 0.75rem;
+    }
+    
+    .gif-item img {
+        height: 120px;
+    }
+    
+    .gif-loading,
+    .gif-error,
+    .gif-no-results,
+    .gif-placeholder {
+        padding: 3rem 1rem;
+        font-size: 1rem;
+    }
+    
+    #gif-search-input:focus {
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+}
+
+/* 12. LOADING STATES - Mobile First */
+.loading {
+    opacity: 0.6;
+    pointer-events: none;
+    position: relative;
+}
+
+.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 16px;
+    height: 16px;
+    border: 2px solid var(--border);
+    border-top: 2px solid var(--primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    transform: translate(-50%, -50%);
+}
+
+@keyframes spin {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* Desktop için loading */
+@media (min-width: 1024px) {
+    .loading::after {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+/* Hide legacy comment actions */
+.comment-actions {
+    display: none !important;
+}
+
+/* Image previews - Mobile First */
+.image-previews {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+    margin: var(--spacing-md) 0;
+    padding: var(--spacing-md);
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+}
+
+.image-preview {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: var(--bg-primary);
+}
+
+.image-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.image-preview .remove-image {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    width: 16px;
+    height: 16px;
+    background: var(--error);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    font-size: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.image-preview .remove-image:hover {
+    background: #dc2626;
+    transform: scale(1.1);
+}
+
+/* Desktop için image previews */
+@media (min-width: 1024px) {
+    .image-previews {
+        gap: 0.75rem;
+        margin: 1rem 0;
+        padding: 1rem;
+    }
+    
+    .image-preview {
+        width: 80px;
+        height: 80px;
+    }
+    
+    .image-preview .remove-image {
+        top: 4px;
+        right: 4px;
+        width: 18px;
+        height: 18px;
+        font-size: 12px;
+    }
+}
+
+/* Yanıtları Göster/Gizle Butonu - Mobile First */
+.replies-toggle-container {
+    margin-top: var(--spacing-sm);
+}
+
+.replies-toggle-btn {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: 16px;
+    cursor: pointer;
+    font-size: 0.7rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    transition: all 0.2s ease;
+    font-family: inherit;
+    min-height: 32px; /* Touch-friendly */
+}
+
+.replies-toggle-btn:hover {
+    background: rgba(37, 99, 235, 0.1);
+    color: var(--primary);
+    border-color: rgba(37, 99, 235, 0.3);
+    transform: translateY(-1px);
+}
+
+.replies-toggle-btn .toggle-icon {
+    width: 14px;
+    height: 14px;
+    transition: transform 0.2s ease;
+}
+
+.replies-toggle-btn.expanded .toggle-icon {
+    transform: rotate(180deg);
+}
+
+.replies-toggle-btn .toggle-text {
+    font-size: 0.7rem;
+    font-weight: 500;
+}
+
+/* Tablet için toggle */
+@media (min-width: 768px) {
+    .replies-toggle-container {
+        margin-top: var(--spacing-md);
+    }
+    
+    .replies-toggle-btn {
+        font-size: 0.725rem;
+        padding: var(--spacing-sm) var(--spacing-md);
+        gap: 0.3125rem;
+    }
+    
+    .replies-toggle-btn .toggle-icon {
+        width: 15px;
+        height: 15px;
+    }
+    
+    .replies-toggle-btn .toggle-text {
+        font-size: 0.725rem;
+    }
+}
+
+/* Desktop için toggle */
+@media (min-width: 1024px) {
+    .replies-toggle-container {
+        margin-top: 0.75rem;
+    }
+    
+    .replies-toggle-btn {
+        padding: 0.5rem 0.75rem;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        gap: 0.375rem;
+        min-height: 36px;
+    }
+    
+    .replies-toggle-btn .toggle-icon {
+        width: 16px;
+        height: 16px;
+    }
+    
+    .replies-toggle-btn .toggle-text {
+        font-size: 0.75rem;
+    }
+}
+
+/* Yanıtlar Konteyneri - Mobile First */
+.replies-container {
+    margin-top: var(--spacing-sm);
+    border-left: 2px solid var(--primary);
+    border-radius: 0;
+    animation: slideDown 0.3s ease;
+}
+
+.replies-container.hiding {
+    animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 1;
+        max-height: 500px;
+        transform: translateY(0);
+    }
+    to {
+        opacity: 0;
+        max-height: 0;
+        transform: translateY(-0.5rem);
+    }
+}
+
+/* Tablet için replies container */
+@media (min-width: 768px) {
+    .replies-container {
+        margin-top: var(--spacing-md);
+    }
+}
+
+/* Desktop için replies container */
+@media (min-width: 1024px) {
+    .replies-container {
+        margin-top: 0.75rem;
+    }
+}
+
+/* PROFILE PAGE - GIF TAŞMA SORUNU FIX */
+.profile-comment-item .comment-excerpt {
+    word-break: break-word !important;
+    overflow-wrap: break-word !important;
+    max-width: 100% !important;
+    overflow: hidden !important;
+}
+
+/* Profile comment'lerindeki GIF ve resimler için özel kontrol */
+.profile-comment-item .comment-excerpt img,
+.profile-comment-item .comment-excerpt .gif-container,
+.profile-comment-item .comment-excerpt .gif-container img {
+    max-width: 100% !important;
+    height: auto !important;
+    display: block !important;
+    margin: 0.5rem 0 !important;
+    border-radius: 6px !important;
+    object-fit: contain !important;
+}
+
+/* Profile comment'lerindeki uzun URL'ler için */
+.profile-comment-item .comment-excerpt a {
+    word-break: break-all !important;
+    color: #005B43 !important;
+    text-decoration: none !important;
+}
+
+.profile-comment-item .comment-excerpt a:hover {
+    text-decoration: underline !important;
+    color: #007a5a !important;
+}
+
+/* Tüm profile comment container'ında taşmayı engelle */
+.profile-comment-item {
+    overflow: hidden !important;
+    word-wrap: break-word !important;
+}
+
+/* Profile comments list container'ında da kontrol */
+.profile-comments-list {
+    overflow: hidden !important;
+}
+
+/* Genel comment excerpt'lerde de GIF taşma kontrolü */
+.comment-excerpt {
+    word-break: break-word !important;
+    overflow-wrap: break-word !important;
+    overflow: hidden !important;
+}
+
+.comment-excerpt img,
+.comment-excerpt .gif-container,
+.comment-excerpt .gif-container img {
+    max-width: 100% !important;
+    height: auto !important;
+    display: block !important;
+    object-fit: contain !important;
+}
+
+.comment-excerpt a {
+    word-break: break-all !important;
+}
+
+/* PROFILE PAGE STYLES - Daha önce eklenenler korunuyor */
+.diyar-user-profile {
+    max-width: 900px; /* Mobilde daha küçük */
+    margin: 0 auto;
+    padding: var(--spacing-lg) var(--spacing-sm);
+    background: #1C1C1C;
+    color: #ffffff;
+    font-size: 14px;
+}
+
+/* Diğer profil stilleri mobil için küçültülmüş... */
+
+/* Desktop için profil ayarları */
+@media (min-width: 1024px) {
+    .diyar-user-profile {
+        max-width: 1000px;
+        padding: 2rem 1rem;
+        font-size: 16px;
+    }
+    /* Diğer profil desktop stilleri... */
+}
