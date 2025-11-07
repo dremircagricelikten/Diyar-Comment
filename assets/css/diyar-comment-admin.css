@@ -98,6 +98,123 @@
     font-weight: 600;
 }
 
+/* Liderlik Tablosu */
+.diyar-leaderboard-container {
+    margin-top: 30px;
+    padding: 24px;
+    background: #fff;
+    border: 1px solid #c3c4c7;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.diyar-leaderboard-container h2 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    color: #1d2327;
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.diyar-leaderboard-description {
+    margin: 0 0 20px;
+    color: #646970;
+    max-width: 640px;
+}
+
+.diyar-leaderboard-columns {
+    display: grid;
+    gap: 24px;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+.diyar-leaderboard-block {
+    background: #f6f7f7;
+    border: 1px solid #d0d1d2;
+    border-radius: 8px;
+    padding: 16px;
+}
+
+.diyar-leaderboard-block h3 {
+    margin: 0 0 16px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #005B43;
+}
+
+.diyar-leaderboard-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 12px;
+}
+
+.diyar-leaderboard-list li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 12px;
+    background: #fff;
+    border: 1px solid #c3c4c7;
+    border-radius: 6px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.diyar-leaderboard-rank {
+    min-width: 28px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 700;
+    color: #005B43;
+}
+
+.diyar-leaderboard-main {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex: 1;
+}
+
+.diyar-leaderboard-name {
+    font-size: 15px;
+    font-weight: 600;
+    color: #1d2327;
+}
+
+.diyar-leaderboard-name a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.diyar-leaderboard-name a:hover,
+.diyar-leaderboard-name a:focus {
+    color: #005B43;
+}
+
+.diyar-leaderboard-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    font-size: 12px;
+    color: #50575e;
+}
+
+.diyar-leaderboard-score {
+    font-weight: 600;
+    color: #005B43;
+}
+
+.diyar-leaderboard-empty {
+    margin: 0;
+    padding: 16px;
+    border-radius: 6px;
+    background: #fff;
+    border: 1px dashed #c3c4c7;
+    color: #646970;
+    text-align: center;
+}
+
 /* Rozet Yönetimi - Düzeltilmiş */
 .badge-manager-container {
     display: grid;
